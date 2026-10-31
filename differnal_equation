@@ -1,0 +1,53 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+
+double f(double x, double y) {
+    return x*x + y;
+}
+
+double rk2(double x, double y, double h) {
+    for(int i = 0; i < 3; i++) {
+        double k1 = h*f(x, y);
+        double k2 = h*f(x + h/2, y + k1/2);
+
+        y = y + k2;
+        x = x + h;
+    }
+
+    return y;
+}
+
+double rk4(double x, double y, double h) {
+    for(int i = 0; i < 3; i++) {
+        double k1 = h*f(x, y);
+        double k2 = h*f(x + h/2, y + k1/2);
+        double k3 = h*f(x + h/2, y + k2/2);
+        double k4 = h*f(x + h, y + k3);
+
+        y = y + (k1 + 2*(k2 + k3) + k4)/6;
+        x = x + h;
+    }
+
+    return y;
+}
+
+double euler(double x , double y, double h){
+    for(int i =0 ; i<3 ; i++){
+        y = y+h*f(x,y);
+        x=x+h;
+    }
+    return y;
+}
+
+int main() {
+    double x = 0;
+    double y = 1;
+    double h = 0.1;
+
+    cout << "RK2: y(0.3) = " << rk2(x, y, h) << endl;
+    cout << "RK4: y(0.3) = " << rk4(x, y, h) << endl;
+    cout<<"euler method for y(0.3)"<<euler(x,y,h)<<endl;
+
+    return 0;
+}
